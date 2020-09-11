@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="RomanNumeralsTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-09-11T01:22:29" hostname="Ezequiels-MacBook-Pro-2.local" time="0.003">
+<testsuite name="RomanNumeralsTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2020-09-11T01:28:16" hostname="Ezequiels-MacBook-Pro-2.local" time="0.002">
   <properties/>
-  <testcase name="numeros conocidos" classname="RomanNumeralsTest" time="0.003"/>
+  <testcase name="si es un numero conocido se imprime directamente" classname="RomanNumeralsTest" time="0.002"/>
+  <testcase name="numeros conocidos" classname="RomanNumeralsTest" time="0.0"/>
+  <testcase name="puedo generar numeros desconocidos sumando numeros conocidos" classname="RomanNumeralsTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
