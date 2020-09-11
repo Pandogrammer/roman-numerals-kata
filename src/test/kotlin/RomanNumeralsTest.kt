@@ -88,6 +88,19 @@ class RomanNumeralsTest {
 
         assertEquals("XLV", result)
     }
+
+    @Test
+    fun `Las restas solo pueden hacerse entre unidades continuas`(){
+        val numbers = mapOf(99 to "XCIX", 900 to "CM")
+
+        numbers.keys.forEach {
+            val result = romanConverter.convert(it)
+
+            assertEquals(numbers[it], result)
+        }
+
+        assertNotEquals("IC", romanConverter.convert(99))
+    }
 }
 
 class RomanConverter(
