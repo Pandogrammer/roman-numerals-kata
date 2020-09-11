@@ -10,7 +10,9 @@ class RomanNumeralsTest {
 
     private val knownNumbers = mapOf(
         1 to "I",
-        5 to "V"
+        5 to "V",
+        10 to "X",
+        50 to "L"
     )
 
     @Before
