@@ -63,6 +63,17 @@ class RomanNumeralsTest {
 
         assertEquals("IV", result)
     }
+
+    @Test
+    fun `Prueba de nuevos numeros`(){
+        val numbers = mapOf(9 to "IX", 8 to "VIII")
+
+        numbers.keys.forEach {
+            val result = romanConverter.convert(it)
+
+            assertEquals(numbers[it], result)
+        }
+    }
 }
 
 class RomanConverter(val knownNumbers: Map<Int, String>) {
@@ -88,14 +99,14 @@ class RomanConverter(val knownNumbers: Map<Int, String>) {
     }
 
     private fun convertBySum(number: Int): String? {
-        var sum = 0
         var result = ""
-        while (sum < number) {
-            val n = 1
+        var reminder = number
+        while (reminder > 0) {
+            val n = knownNumbers.keys.last{ it <= reminder }
             if(!canUse(n))
                 return null
             result += convertKnownNumber(n)
-            sum += n
+            reminder = reminder - n
         }
         return result
     }
