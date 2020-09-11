@@ -101,6 +101,17 @@ class RomanNumeralsTest {
 
         assertNotEquals("IC", romanConverter.convert(99))
     }
+
+    @Test
+    fun `Se pueden separar los dígitos de un número, calcular cada uno individualmente y luego concatenar los resultados`(){
+        val numbers = mapOf(400 to "CD", 70 to "LXX", 6 to "VI", 476 to "CDLXXVI")
+
+        numbers.keys.forEach {
+            val result = romanConverter.convert(it)
+
+            assertEquals(numbers[it], result)
+        }
+    }
 }
 
 class RomanConverter(
