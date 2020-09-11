@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="RomanNumeralsTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2020-09-11T02:18:32" hostname="Ezequiels-MacBook-Pro-2.local" time="0.01">
+<testsuite name="RomanNumeralsTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2020-09-11T02:31:15" hostname="Ezequiels-MacBook-Pro-2.local" time="0.016">
   <properties/>
-  <testcase name="Si es un numero conocido se imprime directamente" classname="RomanNumeralsTest" time="0.005"/>
-  <testcase name="Numeros conocidos" classname="RomanNumeralsTest" time="0.001"/>
-  <testcase name="Prueba de nuevos numeros" classname="RomanNumeralsTest" time="0.001"/>
-  <testcase name="Un numero puede estar repetido hasta tres veces" classname="RomanNumeralsTest" time="0.001"/>
+  <testcase name="Si es un numero conocido se imprime directamente" classname="RomanNumeralsTest" time="0.001"/>
+  <testcase name="Los numeros que contienen un 5 no pueden usarse para restar" classname="RomanNumeralsTest" time="0.012"/>
+  <testcase name="Numeros conocidos" classname="RomanNumeralsTest" time="0.0"/>
+  <testcase name="Prueba de nuevos numeros" classname="RomanNumeralsTest" time="0.0"/>
+  <testcase name="Un numero puede estar repetido hasta tres veces" classname="RomanNumeralsTest" time="0.0"/>
   <testcase name="Se pueden restar numeros poniendolos hacia la izquierda de otro numero" classname="RomanNumeralsTest" time="0.001"/>
   <testcase name="Puedo generar numeros desconocidos sumando numeros conocidos" classname="RomanNumeralsTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>

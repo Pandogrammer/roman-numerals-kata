@@ -58,14 +58,14 @@ class RomanNumeralsTest {
     }
 
     @Test
-    fun `Se pueden restar numeros poniendolos hacia la izquierda de otro numero`(){
+    fun `Se pueden restar numeros poniendolos hacia la izquierda de otro numero`() {
         val result = romanConverter.convert(4)
 
         assertEquals("IV", result)
     }
 
     @Test
-    fun `Prueba de nuevos numeros`(){
+    fun `Prueba de nuevos numeros`() {
         val numbers = mapOf(9 to "IX", 8 to "VIII")
 
         numbers.keys.forEach {
@@ -73,6 +73,13 @@ class RomanNumeralsTest {
 
             assertEquals(numbers[it], result)
         }
+    }
+
+    @Test
+    fun `Los numeros que contienen un 5 no pueden usarse para restar`() {
+        val result = romanConverter.convert(45)
+
+        assertEquals("XLV", result)
     }
 }
 
@@ -85,25 +92,32 @@ class RomanConverter(val knownNumbers: Map<Int, String>) {
             return convertKnownNumber(number)
 
         var result = convertBySum(number)
-        if(result == null)
+        if (result == null)
             result = convertBySub(number)
-            if(result != null)
-                return result
+        if (result != null)
+            return result
         return convertBySum(number)
     }
 
     private fun convertBySub(number: Int): String? {
-        val nextNumber = knownNumbers.keys.first{ it > number }
-        val reminder = nextNumber - number
-        return convert(reminder) + convertKnownNumber(nextNumber)
+        val nextNumber = knownNumbers.keys.first { it > number }
+        val previousNumber = knownNumbers.keys.last { it < nextNumber && validSubNumber(it) }
+        val leftNumber = nextNumber - previousNumber
+        val rightNumber = number - leftNumber
+        return convert(previousNumber) + convert(nextNumber) + convert(rightNumber)
+    }
+
+    private fun validSubNumber(number: Int): Boolean {
+        val cannotBeUsed = listOf(5, 50)
+        return !cannotBeUsed.contains(number)
     }
 
     private fun convertBySum(number: Int): String? {
         var result = ""
         var reminder = number
         while (reminder > 0) {
-            val n = knownNumbers.keys.last{ it <= reminder }
-            if(!canUse(n))
+            val n = knownNumbers.keys.last { it <= reminder }
+            if (!canUse(n))
                 return null
             result += convertKnownNumber(n)
             reminder = reminder - n
@@ -112,7 +126,7 @@ class RomanConverter(val knownNumbers: Map<Int, String>) {
     }
 
     private fun convertIfCanUse(number: Int): String {
-        return if(canUse(number)) convertKnownNumber(number) else ""
+        return if (canUse(number)) convertKnownNumber(number) else ""
     }
 
     private fun canUse(number: Int) = uses(number) < 3
