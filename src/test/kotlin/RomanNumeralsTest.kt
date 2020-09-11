@@ -12,12 +12,19 @@ class RomanNumeralsTest {
         1 to "I",
         5 to "V",
         10 to "X",
-        50 to "L"
+        50 to "L",
+        100 to "C",
+        500 to "D",
+        1000 to "M"
+    )
+
+    private val invalidSubNumbers = listOf(
+        5, 50, 500
     )
 
     @Before
     fun setUp() {
-        romanConverter = RomanConverter(knownNumbers)
+        romanConverter = RomanConverter(knownNumbers, invalidSubNumbers)
     }
 
     @Test
@@ -83,7 +90,10 @@ class RomanNumeralsTest {
     }
 }
 
-class RomanConverter(val knownNumbers: Map<Int, String>) {
+class RomanConverter(
+    val knownNumbers: Map<Int, String>,
+    val invalidSubNumbers: List<Int>
+) {
     private val usedNumbers = mutableMapOf<Int, Int>()
 
     fun convert(number: Int): String? {
@@ -108,8 +118,7 @@ class RomanConverter(val knownNumbers: Map<Int, String>) {
     }
 
     private fun validSubNumber(number: Int): Boolean {
-        val cannotBeUsed = listOf(5, 50)
-        return !cannotBeUsed.contains(number)
+        return !invalidSubNumbers.contains(number)
     }
 
     private fun convertBySum(number: Int): String? {
@@ -136,6 +145,7 @@ class RomanConverter(val knownNumbers: Map<Int, String>) {
     }
 
     private fun knownNumber(number: Int) = knownNumbers.containsKey(number)
+
     private fun convertKnownNumber(number: Int): String {
         usedNumbers[number] = usedNumbers.getOrDefault(number, 0) + 1
         return knownNumbers.getValue(number)
