@@ -1,5 +1,6 @@
 import junit.framework.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
@@ -50,8 +51,15 @@ class RomanNumeralsTest {
 
         val uses = romanConverter.uses(1)
 
-        assertEquals(3, uses)
+        assertTrue(uses <= 3)
         assertNotEquals("IIII", result)
+    }
+
+    @Test
+    fun `Se pueden restar numeros poniendolos hacia la izquierda de otro numero`(){
+        val result = romanConverter.convert(4)
+
+        assertEquals("IV", result)
     }
 }
 
@@ -63,20 +71,38 @@ class RomanConverter(val knownNumbers: Map<Int, String>) {
         if (knownNumber(number))
             return convertKnownNumber(number)
 
+        var result = convertBySum(number)
+        if(result == null)
+            result = convertBySub(number)
+            if(result != null)
+                return result
+        return convertBySum(number)
+    }
+
+    private fun convertBySub(number: Int): String? {
+        val nextNumber = knownNumbers.keys.first{ it > number }
+        val reminder = nextNumber - number
+        return convert(reminder) + convertKnownNumber(nextNumber)
+    }
+
+    private fun convertBySum(number: Int): String? {
         var sum = 0
         var result = ""
         while (sum < number) {
             val n = 1
-            result += convertIfCanUse(n)
+            if(!canUse(n))
+                return null
+            result += convertKnownNumber(n)
             sum += n
         }
-
         return result
     }
 
     private fun convertIfCanUse(number: Int): String {
-        return if(uses(number) < 3) convertKnownNumber(number) else ""
+        return if(canUse(number)) convertKnownNumber(number) else ""
     }
+
+    private fun canUse(number: Int) = uses(number) < 3
 
     fun uses(knownNumber: Int): Int {
         return usedNumbers.getOrDefault(knownNumber, 0)
